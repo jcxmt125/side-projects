@@ -107,23 +107,43 @@ def make_savefile_cleric_interactive():
         print("1. STR\n2. DEX\n3. CON\n4. INT\n5. WIS\n6. CHA")
 
         skilldependancy = input("Input related stat: ")
+        
+        dependancyCode = ["strength","dexterity","constitution","intelligence","wissdom","charisma"][int(skilldependancy)]
+
         skilldesc = input("Skill description: ")
 
         print("You may leave the following fields empty!")
 
         skillfail = input("On fail: ")
 
+        if skillfail == "":
+            skillfail = "Fail!"
+
         skillmodsuccess = input("On regular success: ")
+
+        if skillmodsuccess == "":
+            skillmodsuccess = "Success!"
 
         skillsuccess = input("On skill critical success: ")
 
-        
+        if skillsuccess == "":
+            skillsuccess = "Critical success!"
+
+        assembledSkill = {
+            "name":skillname,
+            "depend":dependancyCode,
+            "description":skilldesc,
+            "actions":[skillfail,skillmodsuccess,skillsuccess]
+        }  
+
+        skills.append(assembledSkill)
 
 
 
     with open(input("File name to save to: ")+".json","w",encoding="UTF-8") as f:
         
         charFile = {
+            "name":character_name,
             "stats":stats,
             "max_hp":stats["constitution"] + 8,
             "max_carry":10 + stat_to_delta(stats["strength"]),
@@ -141,8 +161,84 @@ def make_savefile_cleric_interactive():
             "skills":skills
         }
 
-        json.dump(charFile, f)
+        json.dump(charFile, f, indent=2)
+
+def modify_stats_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+    
+    print(character["stats"])
+
+    modifyTarget = input("What to modify: ")
+
+    modifyValue = int(input("Modify value to: "))
+
+    character["stats"][modifyTarget] = modifyValue
+
+    print("Modified "+modifyTarget+" to "+str(modifyValue)+", resulting in delta of "+str(stat_to_delta(modifyValue)))
+
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
+
+#Item: name, desc, units, unitweight
+
+def modify_misc_inventory_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+    
+    inventory = character["inventory"]["other"]
+
+    for i in range(len(inventory)):
+        print(str(i)+". "+inventory[0])
+    
+    modifyTarget = input("Input item number to modify, or return to add item!")
+
+    if modifyTarget == "":
+        itemName = input("Input item name: ")
+        itemDesc = input("Input item description: ")
+        itemUnits = int(input("Input number of items: "))
+        itemUnitWeight = int(input("Input unit weight of item: "))
+
+        assembledItem = [itemName,itemDesc,itemUnits,itemUnitWeight]
+
+        character["current_carry"] += itemUnits*itemUnitWeight
+
+        inventory.append(assembledItem)
+
+    else:
+        modifyTarget = int(modifyTarget)
+
+        itemLoad = inventory[modifyTarget]
+
+        itemName = itemLoad[0]
+        itemDesc = itemLoad[1]
+
+        print(itemName+": "+itemDesc)
+
+        itemUnits = itemLoad[2]
+        itemUnitWeight = itemLoad[3]
+
+        character["current_carry"] -= itemUnits*itemUnitWeight
+        
+        delta_units = int(input("Item number to increment: "))
+
+        itemUnits += delta_units
+
+        if itemUnits == 0:
+            del inventory[modifyTarget]
+            
+            print("Item removed from inventory")
+        else:
+            character["current_carry"] += itemUnits*itemUnitWeight
+
+        
+
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
+
 
 if __name__ == "__main__":
     #print(roll_dice_from_notation(input("Dice Notation: ")))
-    make_savefile_cleric_interactive()
+    #make_savefile_cleric_interactive()
+    #modify_stats_interactive(input("Drag file here: "))
+    modify_misc_inventory_interactive(input("Drag file here: "))
