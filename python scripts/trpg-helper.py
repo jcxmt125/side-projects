@@ -27,24 +27,39 @@ def roll_dice_from_notation(dice_notation):
     for i in notation_list:
         if "d" in i:
             dicevalue = i.split("d")
-            number_list.append(dicevalue[0]*random.randint(1,dicevalue[2]))
+            if dicevalue[0] == "":
+                dicevalue[0] = 1
+            
+            rollresult = 0
+
+            dicevalue[0] = int(dicevalue[0])
+
+            while dicevalue[0] > 0:
+                rollresult += random.randint(1,int(dicevalue[1]))
+                dicevalue[0] -= 1
+
+            number_list.append(rollresult)
         else:
             number_list.append(i)
     
+    print(number_list)
+
     result = 0
 
+    symbol = 1
+
     for i in number_list:
-        symbol = 1
-        try:
-            if symbol:
-                result += int(i)
-            else:
-                result -= int(i)
-        except:
-            if i == "+":
-                symbol = 1
-            elif i == "-":
-                symbol = 0
+        
+        if i == "+":
+            symbol = 1
+        elif i == "-":
+            symbol = 0
+        elif symbol:
+            result += int(i)
+        else:
+            result -= int(i)
+
+    return result
         
 
 def make_savefile_cleric_interactive():
@@ -59,7 +74,7 @@ def make_savefile_cleric_interactive():
         "charisma":int(input("Input charisma: "))
     }
     
-    base_attack = input("Input base attack in standard dice notation (ex. d4, d5 + 2, ...): ")
+    base_attack = input("Input base attack in standard dice notation with spaces! (ex. d4, d5 + 2, ...): ")
 
     print("Let's start adding the inventory!")
     
@@ -75,19 +90,59 @@ def make_savefile_cleric_interactive():
 
     equipment = 5
 
-    inventory_misc = {}
+    inventory_misc = []
 
-    with open(input("File name to save to: "),"w",encoding="UTF-8") as f:
+    #actions
+
+    print("Okay, time to add skills...")
+
+    skills = []
+
+    while True:
+        skillname = input("Input skill name: ")
+
+        if skillname == "":
+            break
+
+        print("1. STR\n2. DEX\n3. CON\n4. INT\n5. WIS\n6. CHA")
+
+        skilldependancy = input("Input related stat: ")
+        skilldesc = input("Skill description: ")
+
+        print("You may leave the following fields empty!")
+
+        skillfail = input("On fail: ")
+
+        skillmodsuccess = input("On regular success: ")
+
+        skillsuccess = input("On skill critical success: ")
+
+        
+
+
+
+    with open(input("File name to save to: ")+".json","w",encoding="UTF-8") as f:
         
         charFile = {
             "stats":stats,
             "max_hp":stats["constitution"] + 8,
             "max_carry":10 + stat_to_delta(stats["strength"]),
             "current_carry":armor[2] + weapon[2] + holy_artifact[1] + round(money/100) + round(food/5) + round(equipment/5),
-            "base_attack":base_attack
+            "base_attack":base_attack,
+            "inventory":{
+                "weapon":weapon,
+                "armor":armor,
+                "artifact":holy_artifact,
+                "money":money,
+                "food":food,
+                "equipment":equipment,
+                "other":inventory_misc
+            },
+            "skills":skills
         }
 
         json.dump(charFile, f)
 
 if __name__ == "__main__":
-    roll_dice_from_notation(input("Dice Notation: "))
+    #print(roll_dice_from_notation(input("Dice Notation: ")))
+    make_savefile_cleric_interactive()
