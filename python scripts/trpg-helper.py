@@ -108,7 +108,7 @@ def make_savefile_cleric_interactive():
 
         skilldependancy = input("Input related stat: ")
         
-        dependancyCode = ["strength","dexterity","constitution","intelligence","wissdom","charisma"][int(skilldependancy)]
+        dependancyCode = ["strength","dexterity","constitution","intelligence","wisdom","charisma"][int(skilldependancy)]
 
         skilldesc = input("Skill description: ")
 
@@ -158,10 +158,45 @@ def make_savefile_cleric_interactive():
                 "equipment":equipment,
                 "other":inventory_misc
             },
-            "skills":skills
+            "skills":skills,
+            "effects":{
+                "stats":{
+                    "strength":0,
+                    "dexterity":0,
+                    "constitution":0,
+                    "intelligence":0,
+                    "wisdom":0,
+                    "charisma":0
+                },
+                "other":[]
+            }
         }
 
         json.dump(charFile, f, indent=2)
+
+def fix_partial_charfile(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+    
+    if not ("name" in character):
+        character["name"] = input("Input character name: ")
+
+    if not ("stats" in character):
+        stats = {
+            "strength":int(input("Input strength: ")),
+            "dexterity":int(input("Input dexterity: ")),
+            "constitution":int(input("Input constitution: ")),
+            "intelligence":int(input("Input intelligence: ")),
+            "wisdom":int(input("Input wisdom: ")),
+            "charisma":int(input("Input charisma: "))
+        }
+        character["stats"] = stats
+
+    if not ("max_hp" in character):
+        character["max_hp"] = character["stats"]["constitution"] + 8
+
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
 
 def modify_stats_interactive(charFileName):
     with open(charFileName, "r", encoding="UTF-8") as charFile:
@@ -236,9 +271,55 @@ def modify_misc_inventory_interactive(charFileName):
     with open(charFileName, "w", encoding="UTF-8") as charFile:
         json.dump(character,charFile,indent=2)
 
+def use_skill_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+
+    skillList = character["skills"]
+
+    for i in range(len(skillList)):
+        print(str(i) + ". " + skillList[i]["name"])
+    
+    skillIndex = int(input("Skill to use: "))
+
+    selectedSkill = skillList[skillIndex]
+
+    rollResult = input("Input roll result or return to roll: ")
+
+    if rollResult == "":
+        rollResult = roll_dice_from_notation("d12")
+        print("Result of roll: "+str(rollResult))
+    
+    rollResult = int(rollResult)
+
+    finalRoll = rollResult + stat_to_delta(character["stats"][selectedSkill["depend"]]) + character["effects"]["stats"][selectedSkill["depend"]]
+
+    print("Final Roll " + str(finalRoll))
+
+    if finalRoll <6:
+        print(selectedSkill["actions"][0])
+    elif finalRoll <10:
+        print(selectedSkill["actions"][1])
+    else:
+        print(selectedSkill["actions"][2])
+
+def apply_effect_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
+    
+def add_skill_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+    
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
 
 if __name__ == "__main__":
-    #print(roll_dice_from_notation(input("Dice Notation: ")))
-    #make_savefile_cleric_interactive()
-    #modify_stats_interactive(input("Drag file here: "))
-    modify_misc_inventory_interactive(input("Drag file here: "))
+    fileLoc = input("Drag file here: ")
+
+    while True:
+
+        use_skill_interactive(fileLoc)
