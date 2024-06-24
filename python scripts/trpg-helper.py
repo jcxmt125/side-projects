@@ -104,7 +104,7 @@ def make_savefile_cleric_interactive():
         if skillname == "":
             break
 
-        print("1. STR\n2. DEX\n3. CON\n4. INT\n5. WIS\n6. CHA")
+        print("0. STR\n1. DEX\n2. CON\n3. INT\n4. WIS\n5. CHA")
 
         skilldependancy = input("Input related stat: ")
         
@@ -174,7 +174,7 @@ def make_savefile_cleric_interactive():
 
         json.dump(charFile, f, indent=2)
 
-def fix_partial_charfile(charFileName):
+def fix_charfile_cleric_interactive(charFileName):
     with open(charFileName, "r", encoding="UTF-8") as charFile:
         character = json.load(charFile)
     
@@ -191,9 +191,40 @@ def fix_partial_charfile(charFileName):
             "charisma":int(input("Input charisma: "))
         }
         character["stats"] = stats
+    
+    if not ("inventory" in character):
+        raise("Something went very wrong, as your character does not have an inventory. Please re-create it.")
 
-    if not ("max_hp" in character):
-        character["max_hp"] = character["stats"]["constitution"] + 8
+    character["max_hp"] = character["stats"]["constitution"] + 8
+
+    character["max_carry"] = 10 + stat_to_delta(character["stats"]["strength"])
+    
+    character["current_carry"] = character["inventory"]["armor"][2] + character["inventory"]["weapon"][2] + character["inventory"]["artifact"][1] + round(character["inventory"]["money"]/100) + round(character["inventory"]["food"]/5) + round(character["inventory"]["equipment"]/5)
+
+    for i in character["inventory"]["other"]:
+        character["current_carry"] += i[2]*i[3]
+    
+    if not ("base_attack" in character):
+        base_attack = input("Input base attack in standard dice notation with spaces! (ex. d4, d5 + 2, ...): ")
+        character["base_attack"] = base_attack
+    
+    if not ("skills" in character):
+        character["skills"] = []
+        print("You have an empty skill list. Please create some.")
+
+    if not("effects" in character):
+        character["effects"] ={
+                "stats":{
+                    "strength":0,
+                    "dexterity":0,
+                    "constitution":0,
+                    "intelligence":0,
+                    "wisdom":0,
+                    "charisma":0
+                },
+                "other":[]
+            }
+
 
     with open(charFileName, "w", encoding="UTF-8") as charFile:
         json.dump(character,charFile,indent=2)
@@ -306,6 +337,14 @@ def use_skill_interactive(charFileName):
 def apply_effect_interactive(charFileName):
     with open(charFileName, "r", encoding="UTF-8") as charFile:
         character = json.load(charFile)
+    
+    applyTarget = input("Is is a [S]tat effect? Or something [e]lse...")
+
+    if applyTarget == "S":
+        applyTargetStat = input("Stat to apply to: ")
+        applyTargetDelta = int(input("Effect delta: "))
+
+        character["effects"]["stats"][applyTargetStat] = applyTargetDelta
 
     with open(charFileName, "w", encoding="UTF-8") as charFile:
         json.dump(character,charFile,indent=2)
@@ -314,11 +353,49 @@ def add_skill_interactive(charFileName):
     with open(charFileName, "r", encoding="UTF-8") as charFile:
         character = json.load(charFile)
     
+    skillname = input("Input skill name: ")
+
+    print("0. STR\n1. DEX\n2. CON\n3. INT\n4. WIS\n5. CHA")
+
+    skilldependancy = input("Input related stat: ")
+    
+    dependancyCode = ["strength","dexterity","constitution","intelligence","wisdom","charisma"][int(skilldependancy)]
+
+    skilldesc = input("Skill description: ")
+
+    print("You may leave the following fields empty!")
+
+    skillfail = input("On fail: ")
+
+    if skillfail == "":
+        skillfail = "Fail!"
+
+    skillmodsuccess = input("On regular success: ")
+
+    if skillmodsuccess == "":
+        skillmodsuccess = "Success!"
+
+    skillsuccess = input("On skill critical success: ")
+
+    if skillsuccess == "":
+        skillsuccess = "Critical success!"
+
+    assembledSkill = {
+        "name":skillname,
+        "depend":dependancyCode,
+        "description":skilldesc,
+        "actions":[skillfail,skillmodsuccess,skillsuccess]
+    }  
+
+    character["skills"].append(assembledSkill)
+
     with open(charFileName, "w", encoding="UTF-8") as charFile:
         json.dump(character,charFile,indent=2)
 
 if __name__ == "__main__":
     fileLoc = input("Drag file here: ")
+
+    fix_charfile_cleric_interactive(fileLoc)
 
     while True:
 
