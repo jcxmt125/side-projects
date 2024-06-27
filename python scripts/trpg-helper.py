@@ -168,7 +168,9 @@ def make_savefile_cleric_interactive():
                     "wisdom":0,
                     "charisma":0
                 },
-                "other":[]
+                "other":{
+                    "spellcast":0
+                }
             }
         }
 
@@ -222,7 +224,9 @@ def fix_charfile_cleric_interactive(charFileName):
                     "wisdom":0,
                     "charisma":0
                 },
-                "other":[]
+                "other":{
+                    "spellcast":0
+                }
             }
 
 
@@ -392,11 +396,62 @@ def add_skill_interactive(charFileName):
     with open(charFileName, "w", encoding="UTF-8") as charFile:
         json.dump(character,charFile,indent=2)
 
+def print_charfile(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+    
+    print(character)
+
+def attempt_spellcast_interactive(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+
+    finalroll = roll_dice_from_notation("d12") + stat_to_delta(character["stats"]["wisdom"]) + character["effects"]["stats"]["wisdom"] + character["effects"]["other"]["spellcast"]
+
+    if finalroll < 7:
+        print("Fail!")
+    elif finalroll < 10:
+        print("Regular success!")
+
+        sideEffect = roll_dice_from_notation("d3")
+
+        if sideEffect == 1:
+            print("Something bad happens!")
+        elif sideEffect == 2:
+            print("Spellcast rolls affected negatively!")
+            character["effects"]["other"]["spellcast"] -= 1
+        else:
+            print("You can't use this spell anymore until long rest!")
+
+    else:
+        print("Critical success!")
+    
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
+
+def long_rest(charFileName):
+    with open(charFileName, "r", encoding="UTF-8") as charFile:
+        character = json.load(charFile)
+
+    character["effects"]["other"]["spellcast"] = 0
+
+    with open(charFileName, "w", encoding="UTF-8") as charFile:
+        json.dump(character,charFile,indent=2)
+
 if __name__ == "__main__":
-    fileLoc = input("Drag file here: ")
 
-    fix_charfile_cleric_interactive(fileLoc)
+    selection = input("Create or load character: ")
 
-    while True:
+    if selection == "":
+        make_savefile_cleric_interactive()
 
-        use_skill_interactive(fileLoc)
+    else:
+        fileLoc = selection
+
+        fix_charfile_cleric_interactive(fileLoc)
+
+        print_charfile(fileLoc)
+
+        while True:
+            
+            use_skill_interactive(fileLoc)
