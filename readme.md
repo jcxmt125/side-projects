@@ -24,3 +24,4 @@ This contains some random pieces of Python code!
 - ...-worker-test.py: Run this with the correct exposed API URL to test out the functionality of your deployed worker quickly! You'll probably need the request module.
 - htmlify.py: make a source.txt file with the content you want and it should convert all newlines to a \<br\> tag, and tab out things.
 - trpg-helper.py: a file to help you out for TRPG sessions. Currently adapted to me and my friend's ruleset for a cleric.
+- create-3d-trangles.py: a file that makes a txt file containing randomly colored, circularly-placed triangles and tetrahedrons for use in an a-frame environment.

@@ -1,13 +1,15 @@
 import random
 import math
 
-numberOfTriangles = int(input("How many triangles? "))
+numberOfTriangles = int(input("How many objects? "))
 
 radius = int(input("Input disperse radius: "))
 
-randomIntensity = 5
+randomIntensity = 20
 
-sineIntensity = 5
+randomPosIntensity = 3
+
+sineIntensity = 20
 
 triangleScale = int(input("Input scale: "))
 
@@ -19,13 +21,13 @@ for i in range(numberOfTriangles):
     
     theta = 2 * math.pi * i / numberOfTriangles
     x = radius * math.cos(theta)
-    y = math.sin(theta + math.pi / 2)*sineIntensity
+    y = math.sin(theta + math.pi / 2)*sineIntensity + 5
     z = radius * math.sin(theta)
     listOfPoints.append((x, y, z, theta))
 
 # From list of points, generate triangles
 
-listTriangles = []
+listObjects = []
 
 for i in listOfPoints:
 
@@ -37,15 +39,25 @@ for i in listOfPoints:
 
     yFinal = i[1] + (random.random()-0.5)*randomIntensity
 
-    positionAssembled = f'{i[0]} {i[1]} {i[2]}'
+    randomPos = 1+(random.random())*randomPosIntensity
 
-    rotationAssembled = f'0 {(2*math.pi-i[3])*180/math.pi-90} {random.randint(0, 360)}' 
+    positionAssembled = f'{i[0]*randomPos} {yFinal*randomPos} {i[2]*randomPos}'
 
-    listTriangles.append(f"<a-triangle color=\"{colorAssembled}\" position=\"{positionAssembled}\" rotation = \"{rotationAssembled}\" scale = \"{triangleScale}, {triangleScale}, {triangleScale}\"></a-triangle>")
+    if random.randint(0, 1) == 0:
+
+        rotationAssembled = f'0 {(2*math.pi-i[3])*180/math.pi-90} {random.randint(0, 360)}' 
+
+        listObjects.append(f"<a-triangle color=\"{colorAssembled}\" position=\"{positionAssembled}\" rotation = \"{rotationAssembled}\" scale = \"{triangleScale*randomPos}, {triangleScale*randomPos}, {triangleScale*randomPos}\"></a-triangle>")
+
+    else:
+
+        rotationAssembled = f'{random.randint(0,360)} {random.randint(0,360)} {random.randint(0, 360)}'
+
+        listObjects.append(f"<a-tetrahedron color=\"{colorAssembled}\" position=\"{positionAssembled}\" rotation = \"{rotationAssembled}\" scale = \"{triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}\"></a-tetrahedron>")
 
 
 with open("output.txt", "a", encoding="utf-8") as f:
-    for i in listTriangles:
+    for i in listObjects:
         f.write("    ")
         f.write(i)
         f.write("\n")
