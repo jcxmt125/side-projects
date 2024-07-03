@@ -8,11 +8,7 @@ addEventListener('fetch', event => {
   
     // Redirectable URLs
     const redirectUrls = [
-      `https://tempstore.jclink.link/week${path}`,
-      `https://tempstore.jclink.link/month${path}`,
-      `https://blaze.jclink.link/file/CF-resources${path}`,
-      `https://resources.jclink.link${path}`,
-      `https://tempstore.jclink.link${path}`
+      `https://example.com${path}`,
     ]
   
     const commonExts = [
@@ -24,6 +20,8 @@ addEventListener('fetch', event => {
       `.jpg`
     ]
   
+
+    // I don't completely understand this code as it was written with AI
     for (const redirectUrl of redirectUrls) {
       for (const ext of commonExts) {
         const controller = new AbortController();
@@ -47,7 +45,7 @@ addEventListener('fetch', event => {
   
     // If none of the redirect URLs work, return the original request (404)
     return new Response(
-      'Resource not found. AutoCDN may not have searched for the correct extension, or there may have been a typo.', {status: 404, statusText: 'Resource not found.'}
+      'Resource not found. Finder may not have searched for the correct extension, or there may have been a typo.', {status: 404, statusText: 'Resource not found.'}
     )
   }
   
