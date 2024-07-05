@@ -1,19 +1,6 @@
 import random
 import math
 
-"""numberOfTriangles = 500
-
-radius = 20
-
-randomIntensity = 20
-
-randomPosIntensity = 3
-
-sineIntensity = 20
-
-triangleScale = 2"""
-
-#Generate a list of points on the radius of the circle
 def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity, sineIntensity, triangleScale):
     listOfPoints = []
     
@@ -65,8 +52,11 @@ def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity,
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     </head>
 
-    <body>
-    <a-scene fog="type: exponential; density: 0.003; color: #000" background="color: #000">"""
+    <body>"""
+
+    darkMode = random.choice(["#FFF","#000"])
+
+    html += f"<a-scene fog=\"type: exponential; density: 0.003; color: {darkMode}\" background=\"color: {darkMode}\">"
 
     for i in listObjects:
         html += "    "
