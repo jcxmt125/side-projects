@@ -26,3 +26,6 @@ This contains some random pieces of Python code!
 - htmlify.py: make a source.txt file with the content you want and it should convert all newlines to a \<br\> tag, and tab out things.
 - trpg-helper.py: a file to help you out for TRPG sessions. Currently adapted to me and my friend's ruleset for a cleric.
 - create-3d-trangles.py: a file that makes a txt file containing randomly colored, circularly-placed triangles and tetrahedrons for use in an a-frame environment.
+- uploadfile.py: a file that provides a *very* simple Terminal-based UI to upload files to a S3 compatible storage or Backblaze B2 (Warning: dynamic imports!)
+
+You might want to look at the requirements in the file before running them.
