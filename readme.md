@@ -29,3 +29,5 @@ This contains some random pieces of Python code!
 - uploadfile.py: a file that provides a *very* simple Terminal-based UI to upload files to a S3 compatible storage or Backblaze B2 (Warning: dynamic imports!)
 
 You might want to look at the requirements in the file before running them.
+
+For more information, [visit my website!](https://hackclub.jclink.link/documentations)
