@@ -1,14 +1,14 @@
 import random
 import math
 
-def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity, sineIntensity, triangleScale):
+def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity, sineIntensity, triangleScale, sineOffset):
     listOfPoints = []
     
     for i in range(numberOfTriangles):
         
         theta = 2 * math.pi * i / numberOfTriangles
         x = radius * math.cos(theta)
-        y = math.sin(theta + math.pi / 2)*sineIntensity + 5
+        y = math.sin(theta + math.pi*sineOffset / 2)*sineIntensity + 5
         z = radius * math.sin(theta)
         listOfPoints.append((x, y, z, theta))
 
@@ -69,3 +69,15 @@ def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity,
     </html>"""
 
     return html
+
+if __name__ == "__main__":
+    with open("test.html", 'w', encoding="UTF-8") as testFile:
+        numTrig = random.randrange(500, 1000)
+
+        rad = random.randrange(100, 200)
+
+        sineOff = random.random()*4
+
+        testFile.write(generateHTML(numTrig, rad, 20, 3, 20, rad/50, sineOff))
+        
+        #testFile.write(generateHTML(500, 100, 20, 3, 20, 2))
