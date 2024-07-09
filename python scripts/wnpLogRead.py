@@ -10,8 +10,7 @@ for i in logList:
 
 print("Log file imported!\n\
 1. List videos by times played\n\
-2. List artists (channels) by times played\n\
-3. Word view")
+2. List artists (channels) by times played")
 
 actionChose = int(input("What would you like to do> "))
 
@@ -93,33 +92,3 @@ elif actionChose == 2:
         for i in range(5):
             print(str(playTimeList[i][0]) + " times: " + playTimeList[i][1])\
 
-elif actionChose == 3:
-
-    wordsDict = dict()
-
-    for i in logListSplit:
-
-        for j in i:
-            words = j.split()
-
-            print(words)
-
-        for j in words:
-            
-            if j in wordsDict:
-
-                wordsDict[j] += 1
-
-            else:
-
-                wordsDict[j] = 1
-
-
-    wordsList = []
-
-    for i in wordsDict:
-        wordsList.append([wordsDict[i], i])
-    
-    wordsList.sort(reverse=True)
-
-    print(wordsList)
