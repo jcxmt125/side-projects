@@ -9,7 +9,9 @@ for i in logList:
     logListSplit.append(i.split(" || "))
 
 print("Log file imported!\n\
-1. List videos by times played")
+1. List videos by times played\n\
+2. List artists (channels) by times played\n\
+3. Word view")
 
 actionChose = int(input("What would you like to do> "))
 
@@ -36,4 +38,88 @@ if actionChose == 1:
     for i in playTimeDict:
         playTimeList.append([playTimeDict[i], i])
 
-    print(playTimeList)
+    playTimeList.sort(reverse=True)
+
+    if len(playTimeList) < 5:
+
+        print(f"Top {str(len(playTimeList))} songs played: ")
+
+        for i in playTimeList:
+            print(str(i[0]) + " times: " + i[1])
+
+    else:
+
+        print("Top 5 songs played: ")
+
+        for i in range(5):
+            print(str(playTimeList[i][0]) + " times: " + playTimeList[i][1])
+
+elif actionChose == 2:
+
+    playTimeDict = dict()
+
+    for i in logListSplit:
+
+        if len(i) == 1:
+
+            continue
+
+        if i[2] in playTimeDict:
+
+            playTimeDict[i[2]] += 1
+
+        else:
+
+            playTimeDict[i[2]] = 1
+
+    playTimeList = []
+
+    for i in playTimeDict:
+        playTimeList.append([playTimeDict[i], i])
+
+    playTimeList.sort(reverse=True)
+
+    if len(playTimeList) < 5:
+
+        print(f"Top {str(len(playTimeList))} artists played: ")
+
+        for i in playTimeList:
+            print(str(i[0]) + " times: " + i[1])
+
+    else:
+
+        print("Top 5 artists played: ")
+
+        for i in range(5):
+            print(str(playTimeList[i][0]) + " times: " + playTimeList[i][1])\
+
+elif actionChose == 3:
+
+    wordsDict = dict()
+
+    for i in logListSplit:
+
+        for j in i:
+            words = j.split()
+
+            print(words)
+
+        for j in words:
+            
+            if j in wordsDict:
+
+                wordsDict[j] += 1
+
+            else:
+
+                wordsDict[j] = 1
+
+
+    wordsList = []
+
+    for i in wordsDict:
+        wordsList.append([wordsDict[i], i])
+    
+    wordsList.sort(reverse=True)
+
+    print(wordsList)
