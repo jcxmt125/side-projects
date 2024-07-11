@@ -43,7 +43,7 @@ def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity,
             listObjects.append(f"<a-tetrahedron color=\"{colorAssembled}\" position=\"{positionAssembled}\" rotation = \"{rotationAssembled}\" scale = \"{triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}\"></a-tetrahedron>")
 
     html = """<!DOCTYPE html>
-    <html>
+    <html lang="EN>
 
     <head>
     <meta charset="utf-8">
@@ -52,7 +52,8 @@ def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity,
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     </head>
 
-    <body>"""
+    <body>
+    This page is an entirely visual experience. There are many multipcolored triangles and tetrahedrons floating around the screen, static and unmoving, in a tilted circle around you."""
 
     darkMode = random.choice(["#FFF","#000"])
 
