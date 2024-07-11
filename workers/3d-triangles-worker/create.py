@@ -43,7 +43,7 @@ def generateHTML(numberOfTriangles, radius, randomIntensity, randomPosIntensity,
             listObjects.append(f"<a-tetrahedron color=\"{colorAssembled}\" position=\"{positionAssembled}\" rotation = \"{rotationAssembled}\" scale = \"{triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}, {triangleScale*randomPos*0.9}\"></a-tetrahedron>")
 
     html = """<!DOCTYPE html>
-    <html lang="EN>
+    <html lang="EN">
 
     <head>
     <meta charset="utf-8">
