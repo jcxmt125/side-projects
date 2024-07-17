@@ -1,4 +1,4 @@
 .env
-*.json
+*trpg.json
 test*
 *log*.txt
