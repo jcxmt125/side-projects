@@ -34,3 +34,9 @@ This contains some random pieces of Python code!
 You might want to look at the requirements in the file before running them.
 
 For more information, [visit my website!](https://hackclub.jclink.link/documentations)
+
+## The musicLab directory
+
+This is where songs I made for fun reside!
+It was made in [Song Maker Plus](https://www.songmakerpl.us/), which allows anyone to create songs.
+To listen to them, you could try playing the MIDI file directly, or see more [here](https://hackclub.jclink.link/documentations/music.html).
