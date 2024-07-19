@@ -30,6 +30,7 @@ This contains some random pieces of Python code!
 - webNowPlayingLogger.py: logs the playing song an artist to a file
 - wnpLogRead: helps read said file
 - gemini-api-multimodal: Lets you ask Gemini about images
+- mc-serverdeploy.py: See website for guide on using this file.
 
 You might want to look at the requirements in the file before running them.
 
