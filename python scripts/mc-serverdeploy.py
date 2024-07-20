@@ -56,7 +56,17 @@ print("It'll likely ask you to edit the eula.txt file. Please do so!")
 
 memAllocated = int(input("Integer> "))
 
-subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar", jarFile, "nogui"])
+subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar ", jarFile, " nogui"])
+
+print("It should have exited asking you to edit the eula.txt file. I'll launch nano for you.")
+
+print("Use arrow keys to navigate and change the line to eula=true, then press ctrl+x, say pres the y key, then press enter.")
+
+input("Ready? Press return to launch nano!")
+
+subprocess.run(["nano", "eula.txt"])
+
+print("Okay, your server should be ready.")
 
 print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar" +jarFile+ " nogui\" without the quotes to start the server.")
 
