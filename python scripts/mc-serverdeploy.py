@@ -2,7 +2,7 @@ import subprocess, os
 
 print("Hello! This script will help you deploy a minecraft server. I'll work in the current directory.")
 
-print("This script is made for Linux!")
+print("This script is made for Linux, by the way! Please see https://hackclub.jclink.link/documentations/python-scripts/mc-createserver for more info.")
 
 print("Let's see if your system has Java ready...")
 
@@ -33,7 +33,7 @@ for i in filesInDir:
         jarFile = i
 
 if serverType == "2":
-    print("Let's install some mods. (I recommend installing the Fabric API!)")
+    print("Let's install some mods. (I recommend installing the Fabric API!) Return an empty line to finish!")
     os.mkdir("mods")
 
     while True:
@@ -52,15 +52,13 @@ if serverType == "2":
 
 print("We're almost ready to run the server. How many gigabytes of RAM would you like to give the server?")
 
-print("It'll likely ask you to edit the eula.txt file. Please do so!")
-
 memAllocated = int(input("Integer> "))
 
-subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar ", jarFile, " nogui"])
+subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar", jarFile, "nogui"])
 
 print("It should have exited asking you to edit the eula.txt file. I'll launch nano for you.")
 
-print("Use arrow keys to navigate and change the line to eula=true, then press ctrl+x, say pres the y key, then press enter.")
+print("Use arrow keys to navigate and change the line to eula=true, then press ctrl+x, then say yes by pressing the y key, then press enter.")
 
 input("Ready? Press return to launch nano!")
 
@@ -68,7 +66,7 @@ subprocess.run(["nano", "eula.txt"])
 
 print("Okay, your server should be ready.")
 
-print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar" +jarFile+ " nogui\" without the quotes to start the server.")
+print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui\" without the quotes to start the server.")
 
 print("If that didn't work, you may have to upgrade or install Java. Do so, and run the above command.")
 
