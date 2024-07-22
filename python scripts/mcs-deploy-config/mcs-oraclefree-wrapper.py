@@ -23,4 +23,9 @@ subprocess.run(["sudo", "firewall-cmd", "--permanent", "--zone=public" ,"--add-p
 
 subprocess.run(["sudo", "firewall-cmd", "--reload"])
 
+installTmux = input("Do you want to install Tmux? [y/n]")
+
+if installTmux == "y":
+    subprocess.run(["sudo", "yum", "install", "tmux"])
+
 print("All done. Please finish setup on the Oracle dashboard.")

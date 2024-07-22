@@ -49,7 +49,7 @@ subprocess.run(["nano", "eula.txt"])
 
 print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui\" without the quotes to start the server.")
 
-print("I'll also create a .sh file for you! Run ./start.sh to use that instead.")
+print("I'll also create a .sh file for you! Run source start.sh to use that instead.")
 
 with open("start.sh", "w") as startFile:
     startFile.write("java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui")
