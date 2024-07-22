@@ -2,7 +2,7 @@ import subprocess, json, os
 
 print("Hello! This script will help you deploy a minecraft server. I'll work in the current directory.")
 
-filePath = input("What's the name of the file?\n>")
+filePath = input("What's the name of the config file?\n>")
 
 with open(filePath, "r", encoding="UTF-8") as configFile:
     config = json.load(configFile)
@@ -21,7 +21,7 @@ for i in filesInDir:
     if i.endswith(".jar"):
         jarFile = i
 
-if serverType == "2":
+if int(serverType) == 2:
     os.mkdir("mods")
 
     for i in config["modlist"]:
@@ -49,7 +49,7 @@ subprocess.run(["nano", "eula.txt"])
 
 print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui\" without the quotes to start the server.")
 
-print("I'll also create a .sh file for you!")
+print("I'll also create a .sh file for you! Run ./start.sh to use that instead.")
 
 with open("start.sh", "w") as startFile:
     startFile.write("java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui")

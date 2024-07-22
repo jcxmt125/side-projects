@@ -14,7 +14,7 @@ elif serverType == 2:
     print("Please visit https://fabricmc.net/use/server/ and copy the link to the jarfile.")
     jarFileLink = input("When done, please paste here: ")
 
-    print("It's now time to configure the mods.")
+    print("Let's add mods now! Make sure you've tested them before you deploy.")
 
     while True:
 
@@ -29,5 +29,5 @@ ramAmount = int(input("How many gigabytes of RAM do you want? "))
 
 print("We'll dump the current settings to a config file.")
 
-with open("config.json", "w", encoding="UTF-8") as configFile:
+with open(input("Input file name (without the .json!): ")+".json", "w", encoding="UTF-8") as configFile:
     json.dump({"serverType": serverType, "jarFileLink": jarFileLink, "modlist": modlist, "ramAmount": ramAmount}, configFile, indent=2)
