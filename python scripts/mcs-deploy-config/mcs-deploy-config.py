@@ -2,6 +2,8 @@ import subprocess, json, os
 
 print("Hello! This script will help you deploy a minecraft server. I'll work in the current directory.")
 
+subprocess.run(["ls"])
+
 filePath = input("What's the name of the config file?\n>")
 
 with open(filePath, "r", encoding="UTF-8") as configFile:

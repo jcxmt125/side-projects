@@ -1,6 +1,6 @@
 import subprocess
 
-print("This script will help you deploy on Oracle's free server specifically.")
+print("This script will help you deploy on Oracle's linux distro.")
 
 print("I'll execute some sudo commands. Please be aware!")
 
@@ -10,7 +10,7 @@ subprocess.run(["yum", "list", "jdk*"])
 
 packageName = input("Input appropriate package name here: ")
 
-print("Please look over this, and input y to continue the install.")
+print("Please look over the install, and input y to continue the install.")
 
 subprocess.run(["sudo", "yum", "install", packageName])
 
