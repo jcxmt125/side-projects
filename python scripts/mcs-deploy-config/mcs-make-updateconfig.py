@@ -3,6 +3,7 @@ import json
 modlist = []
 
 print("This script will make an update config file! Make sure you've tested them before you deploy.")
+print("Return an empty line to finish.")
 
 while True:
 

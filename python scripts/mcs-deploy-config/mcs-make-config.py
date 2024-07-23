@@ -15,6 +15,7 @@ elif serverType == 2:
     jarFileLink = input("When done, please paste here: ")
 
     print("Let's add mods now! Make sure you've tested them before you deploy.")
+    print("Return an empty line to finish.")
 
     while True:
 
@@ -25,7 +26,7 @@ elif serverType == 2:
 
         modlist.append(modLink)
 
-ramAmount = int(input("How many gigabytes of RAM do you want? "))
+ramAmount = int(input("How many gigabytes of RAM do you want? \n>"))
 
 print("We'll dump the current settings to a config file.")
 
