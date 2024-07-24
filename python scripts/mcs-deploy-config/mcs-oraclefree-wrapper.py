@@ -6,6 +6,10 @@ print("I'll execute some sudo commands. Please be aware!")
 
 print("Make sure you also have the mcs-deploy-config script!")
 
+print("I'll update packages before we start. This might take a bit!")
+
+subprocess.run(["sudo", "yum", "update"])
+
 subprocess.run(["yum", "list", "jdk*"])
 
 packageName = input("Input appropriate package name here: ")

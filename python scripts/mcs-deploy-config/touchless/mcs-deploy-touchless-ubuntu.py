@@ -17,6 +17,8 @@ jarFileLink = config["jarFileLink"]
 
 javaName = config["javaName"]
 
+memAllocated = input("RAM in GBs (int)> ")
+
 subprocess.run(["sudo", "apt", "update"])
 subprocess.run(["sudo", "apt", "upgrade", "-y"])
 subprocess.run(["sudo", "apt", "install", "-y", javaName])
@@ -40,8 +42,6 @@ if int(serverType) == 2:
     for i in filesInDir:
         if i.endswith(".jar") and i != jarFile:
             subprocess.run(["mv", i, "mods/"+i])
-
-memAllocated = config["ramAmount"]
 
 subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar", jarFile, "nogui"])
 

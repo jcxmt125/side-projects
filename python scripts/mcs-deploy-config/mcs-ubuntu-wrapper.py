@@ -11,7 +11,7 @@ subprocess.run(["sudo", "apt", "update"])
 packUp = input("Upgrade packages now? [y/n]")
 
 if packUp == "y":
-    subprocess.run(["sudo", "apt", "upgrade"])
+    subprocess.run(["sudo", "apt", "upgrade", "-y"])
 
 subprocess.run(["apt", "search", "jre"])
 
@@ -27,7 +27,7 @@ print("Configuring network...")
 
 subprocess.run(["sudo", "ufw", "allow" ,"25565"])
 
-installTmux = input("Do you want to install screen? [y/n]")
+installTmux = input("Do you want to install screen? (preinstalled in most Ubuntu installations) [y/n]")
 
 if installTmux == "y":
     subprocess.run(["sudo", "apt", "install", "screen"])

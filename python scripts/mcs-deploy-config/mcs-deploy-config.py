@@ -41,13 +41,17 @@ memAllocated = config["ramAmount"]
 
 subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar", jarFile, "nogui"])
 
-print("It should have exited asking you to edit the eula.txt file. I'll launch nano for you.")
+subprocess.run(["cat", "eula.txt"])
 
-print("Use arrow keys to navigate and change the line to eula=true, then press ctrl+x, then say yes by pressing the y key, then press enter.")
+input("You're about to agree to the EULA. Please retrun to allow this script to do so on behalf of you.")
 
-input("Ready? Press return to launch nano!")
+with open("eula.txt", "r") as eulaFile:
+    eula = eulaFile.readlines()
 
-subprocess.run(["nano", "eula.txt"])
+eula[2] = "eula=true\n"
+
+with open("eula.txt", "w") as eulaFile:
+    eulaFile.writelines(eula)
 
 print("After this, run \"java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui\" without the quotes to start the server.")
 
