@@ -1,0 +1,16 @@
+{
+  "serverType": 2,
+  "javaName": "openjdk-21-jre-headless",
+  "jarFileLink": "https://meta.fabricmc.net/v2/versions/loader/1.21/0.15.11/1.0.1/server/jar",
+  "modlist": [
+    "https://cdn.modrinth.com/data/P7dR8mSH/versions/vMQdA5QJ/fabric-api-0.100.7%2B1.21.jar",
+    "https://cdn.modrinth.com/data/gvQqBUqZ/versions/my7uONjU/lithium-fabric-mc1.21-0.12.7.jar",
+    "https://cdn.modrinth.com/data/EsAfCjCV/versions/YxFxnyd4/appleskin-fabric-mc1.21-3.0.2.jar",
+    "https://cdn.modrinth.com/data/uXXizFIs/versions/wmIZ4wP4/ferritecore-7.0.0-fabric.jar",
+    "https://cdn.modrinth.com/data/RfFxanNh/versions/39yHBKs1/fasterrandom-5.0.1.jar",
+    "https://cdn.modrinth.com/data/KuNKN7d2/versions/W8V2bkLB/noisium-fabric-2.2.1%2Bmc1.21.jar",
+    "https://cdn.modrinth.com/data/nvQzSEkH/versions/Um5AmLft/Jade-1.21-Fabric-15.1.4.jar",
+    "https://cdn.modrinth.com/data/fQEb0iXm/versions/Acz3ttTp/krypton-0.2.8.jar"
+  ],
+  "ramAmount": 10
+}
