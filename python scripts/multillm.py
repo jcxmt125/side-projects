@@ -15,13 +15,6 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-models = ['gemini-1.5-flash-latest','@cf/meta/llama-3.1-8b-instruct']
-
-systemPrompt = input("What should the system prompt be? \n> ")
-
-if systemPrompt == "":
-    systemPrompt = "You are a friendly assistant."
-
 #CFAI prep
 API_BASE_URL = "https://gateway.ai.cloudflare.com/v1/"+CLOUDFLARE_USER_ID+"/"+CLOUDFLARE_AI_GATEWAY_SLUG+"/workers-ai/"
 headers = {"Authorization": "Bearer "+CLOUDFLARE_AI_API_KEY}
@@ -31,69 +24,86 @@ def run(model, inputs):
     return response
 
 
-def gemini(model, inputs):
-
-for i in models:
-    modelChosen = i
-
-if modelChosen.startswith("gemini"):
+def gemini(modelChosen, inputs):
     model = genai.GenerativeModel(modelChosen)
 
-    memory = [{'role':'user','parts': [systemPrompt]}]
+    response = model.generate_content(inputs)
+
+    print("Request completed to " + modelChosen + "\n> " + response.text)
+
+    inputs.append({ "role": "model", "content": [response.text] })
+
+    return inputs
+
+def cfllm(modelChosen, inputs):
+
+    plaintext = ""
+    fullresp = ""
+
+    output = run(modelChosen, inputs)
+
+    for line in output:  
+        if line:  # Is it actually a new line?
+            # Handle each line of the response (text generation)
+            plaintext += line.decode("utf-8")        
+
+    while plaintext.find('"response":') != -1:
+        whereis = plaintext.find('"response":')
+        plaintext = plaintext[whereis+12:]
+        whereto = plaintext.find('"')
+        fullresp += plaintext[:whereto]
+
+    if fullresp[-1] == fullresp[-2]:
+        fullresp = fullresp[:-1]
+
+    while fullresp[0] == " ":
+        fullresp = fullresp[1:]
+
+    print("Request completed to " + modelChosen + "\n> " + str(fullresp))
+
+
+if __name__ == "__main__":
+    models = ['gemini-1.5-flash-latest','gemini-1.0-pro','@hf/meta-llama/meta-llama-3-8b-instruct','@hf/mistral/mistral-7b-instruct-v0.2','@cf/google/gemma-7b-it-lora','@cf/meta/llama-3.1-8b-instruct']
+
+    systemPrompt = input("What should the system prompt be? \n> ")
+
+    if systemPrompt == "":
+        systemPrompt = "You are a friendly assistant."
+
+    modelmemories = dict()
+
+    for i in models:
+
+        if i.startswith("gemini"):
+            modelmemories[i] = [{"role":"user", "parts":[systemPrompt]}]
+
+        else:
+            modelmemories[i] = [{"role": "system", "content": systemPrompt}]
 
     while True:
-        userPrompt = input("You: ")
 
-        if userPrompt == "": break
-
-        memory.append({'role':'user','parts': [userPrompt]})
-
-        response = model.generate_content(memory)
-
-        print(response.text)
-
-        memory.append({'role':'model','parts': [response.text]})
-    
-    print("The model you were talking to was " + modelChosen)
-
-else:
-    inputs = [
-    { "role": "system", "content": systemPrompt }
-    ]
-
-    while True:
-        userPrompt = input("You: ")
-
-        if userPrompt == "": break
-
-        inputs.append({ "role": "user", "content": userPrompt })
-
-        plaintext = ""
-        fullresp = ""
-
-        output = run(modelChosen, inputs)
+        messageSend = input("You: ")
         
-        for line in output:  
-            if line:  # Is it actually a new line?
-                # Handle each line of the response (text generation)
-                plaintext += line.decode("utf-8")        
-
-        while plaintext.find('"response":') != -1:
-            whereis = plaintext.find('"response":')
-            plaintext = plaintext[whereis+12:]
-            whereto = plaintext.find('"')
-            fullresp += plaintext[:whereto]
+        if messageSend == "": break
         
-        if fullresp[-1] == fullresp[-2]:
-            fullresp = fullresp[:-1]
+        processes = []
 
-        while fullresp[0] == " ":
-            fullresp = fullresp[1:]
+        for i in models:
+            modelChosen = i
 
-        print(str(fullresp))
+            if modelChosen.startswith("gemini"):
+                modelmemories[modelChosen].append({"role": "user", "parts": [messageSend]})
+                processes.append(multiprocessing.Process(target=gemini, args=(modelChosen, modelmemories[modelChosen])))
 
-        inputs.append({ "role": "assistant", "content": fullresp })
+            else:
 
-    print("The model you were talking to was " + modelChosen)
+                modelmemories[modelChosen].append({"role": "user", "content": messageSend})
+                processes.append(multiprocessing.Process(target=cfllm, args=(modelChosen, modelmemories[modelChosen])))
 
-input()
+        for i in processes:
+            #It's **start** not **run**
+            i.start()
+
+        for i in processes:
+            i.join()
+
