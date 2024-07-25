@@ -31,6 +31,7 @@ This contains some random pieces of Python code!
 - wnpLogRead: helps read said file
 - gemini-api-multimodal: Lets you ask Gemini about images
 - mc-serverdeploy.py: See website for guide on using this file.
+- llm-comparison.py: Makes you chat to a random chatbot, and reveals who it was when the chat ends.
 
 You might want to look at the requirements in the file before running them.
 
