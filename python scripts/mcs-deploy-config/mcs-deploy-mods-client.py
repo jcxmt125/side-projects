@@ -35,3 +35,5 @@ for i in filesInDir:
         shutil.move(Path(i), Path(os.getenv("APPDATA") + "\.minecraft\mods\\" + i))
 
 print("Deploy script done!")
+
+input("Return to close")

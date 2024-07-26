@@ -35,3 +35,5 @@ for i in filesInDir:
         shutil.move(Path(i), Path(os.getenv("APPDATA") + "\.minecraft\mods\\" + i))
 
 print("설치 스크립트 실행 완료!")
+
+input("엔터 키를 눌러 종료하세요.")

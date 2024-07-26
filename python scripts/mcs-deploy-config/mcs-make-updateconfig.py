@@ -9,6 +9,22 @@ while True:
 
     modLink = input("Paste mod link here: ")
 
+    if "forge" in modLink:
+            print("Wait, are you sure this is a Fabric mod?")
+
+            modConfirm = input("Return empty if you want to add, or input anything else to cancel: ")
+
+            if modConfirm != "":
+                continue
+
+    if not modLink.endswith(".jar"):
+            print("Wait, are you sure this is a direct download link to the mod?")
+
+            modConfirm = input("This URL should immediately download the mod. Press enter to add, or input anything else to cancel: ")
+
+            if modConfirm != "":
+                continue
+
     if modLink == "":
         break
 

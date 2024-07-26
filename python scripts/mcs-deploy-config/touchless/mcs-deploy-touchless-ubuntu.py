@@ -61,4 +61,4 @@ print("I'll create a .sh file to launch your server. Run source start.sh in inst
 with open("start.sh", "w") as startFile:
     startFile.write("java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui")
 
-print("Complete!")
+print("Complete! However, this doesn't configure whitelisting, which is highly recommended. Please do that asap after deployment!")
