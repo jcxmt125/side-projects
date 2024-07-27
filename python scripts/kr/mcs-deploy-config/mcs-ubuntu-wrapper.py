@@ -39,4 +39,4 @@ if installTmux == "y":
 
 print("완료했습니다! 서버 제공자의 대시보드에서 설정을 마쳐주세요.")
 
-print("다만, 이 스크립트는 화이트리스트나 enforce-secure-profile 제거 등의 설정은 진행하지 않습니다!")
+print("다만, 이 스크립트는 화이트리스트나 enforce-secure-profile 제거 등의 설정은 진행하지 않습니다! 서버 시작 후, 직접 해주세요.")

@@ -1,28 +1,28 @@
-# Very random side projects!
+# 아무거나 모아놓은 side-projects 프로젝트!
 
-## so what is this again?
+## 그래서 이게 뭐라고요?
 
-Well, I assume you've read the title...
-Anything here may work. Or not. I'm not sure.
-The overall goal of this project does not exist!
-This repository was made to consolidate all my experiments.
+제 사이드 프로젝트 (잡것들)을 모아둔 디렉토리에요.
+여깄는건 작동할 수도 있어요.
+안할 수도 있고요. 저도 사실 잘 몰라요.
+제 실험적인 내용을 모두 모아둔 리포지토리에요!
 
-## The workers directory
+## workers 디렉토리
 
-So... this is a collection of code for the Cloudflare Workers platform.
-Paste the code into the Workers web editor and it'll likely work!
+Cloudflare Workers 플랫폼에서 사용 가능한 코드 모음이에요.
+Workers 웹 에디터로 코드를 붙여넣으면 작동할거에요! 아마.
 
-- helloworld-worker.js: Self explanatory? This will make an API that returns... *hello world*. Try GET-ing from the endpoint!
-- Whisper-worker.js: adapted from the template! Please deploy from the cloudflare template first to make sure the AI bindings are set up properly... (It won't work otherwise. Trust me, I've tried.) GET from it with the header "fileUrl" specified to a URL, and authKey to something you decided previously. Nothing too big for the free tier - it will exceed execution time limits. (And workers AI limits)
-- randomredirect-worker.js: This will 302 redirect people to random URLs!
-- finder-worker.js: This worker will find files in various storage services!
-- create-3d-triangles-workers.py: This Python script can be used in tandem with a simple Python worker to return a random HTML page!
+- helloworld-worker.js: *hello world*를 리턴하는 API를 만듭니다. GET 요청을 보내보세요!
+- Whisper-worker.js: 기존 템플릿의 수정본입니다! 원래의 Whisper 템플릿에서 배포해야 바인딩이 정상적으로 처리됩니다... (해봤어요. 진짜 안돼요.) "fileUrl"과, authKey 헤더를 설정해 GET 요청을 보내보세요. 너무 큰 파일은 무료 티어에선 처리할 수 없어요.
+- randomredirect-worker.js: 사람들을 랜덤한 URL로 302 리디렉 시킵니다!
+- finder-worker.js: 여러 온라인 저장소에서 파일을 찾아줍니다!
+- create-3d-triangles-workers.py: [웹사이트 내용을 참고해주세요]
 
-## The python scripts directory
+## 파이썬 스크립트 디렉토리
 
-This contains some random pieces of Python code!
+여러 파이썬 코드가 있어요!
 
-- ...-worker-test.py: Run this with the correct exposed API URL to test out the functionality of your deployed worker quickly! You'll probably need the request module.
+- ...-worker-test.py: 위의 워커들을 테스트하는데에 사용됩니다.
 - htmlify.py: make a source.txt file with the content you want and it should convert all newlines to a \<br\> tag, and tab out things.
 - trpg-helper.py: a file to help you out for TRPG sessions. Currently adapted to me and my friend's ruleset for a cleric.
 - create-3d-trangles.py: a file that makes a txt file containing randomly colored, circularly-placed triangles and tetrahedrons for use in an a-frame environment.

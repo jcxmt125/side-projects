@@ -1,12 +1,12 @@
 import subprocess, json, os
 
-print("Starting touchless deploy for ubuntu...")
+print("Starting touchless deploy for aarch64 oracle...")
 
-tlconfigLink = "https://raw.githubusercontent.com/jcxmt125/side-projects/main/python%20scripts/mcs-deploy-config/touchless/touchless-config-ubuntu.json"
+tlconfigLink = "https://raw.githubusercontent.com/jcxmt125/side-projects/main/python%20scripts/mcs-deploy-config/touchless/touchless-config-oracle-aarch.json"
 
 subprocess.run(["curl", "-OJ", tlconfigLink])
 
-filePath = "touchless-config-ubuntu.json"
+filePath = "touchless-config-oracle-aarch.json"
 
 with open(filePath, "r", encoding="UTF-8") as configFile:
     config = json.load(configFile)
@@ -17,15 +17,7 @@ jarFileLink = config["jarFileLink"]
 
 javaName = config["javaName"]
 
-subprocess.run(["free"])
-
-print("Please input the amount of RAM to assign to the Minecraft server.")
-
-memAllocated = input("RAM in GBs (int)> ")
-
-subprocess.run(["sudo", "apt", "update"])
-subprocess.run(["sudo", "apt", "upgrade", "-y"])
-subprocess.run(["sudo", "apt", "install", "-y", javaName])
+subprocess.run(["sudo", "yum", "install", "-y", javaName])
 
 subprocess.run(["curl", "-OJ", jarFileLink])
 
@@ -47,6 +39,8 @@ if int(serverType) == 2:
         if i.endswith(".jar") and i != jarFile:
             subprocess.run(["mv", i, "mods/"+i])
 
+memAllocated = config["ramAmount"]
+
 subprocess.run(["java", "-Xmx"+str(memAllocated)+"G", "-jar", jarFile, "nogui"])
 
 with open("eula.txt", "r") as eulaFile:
@@ -57,10 +51,14 @@ eula[2] = "eula=true\n"
 with open("eula.txt", "w") as eulaFile:
     eulaFile.writelines(eula)
 
-subprocess.run(["sudo", "ufw", "allow" ,"25565"])
-subprocess.run(["sudo", "apt", "install", "-y", "screen"])
+subprocess.run(["sudo", "firewall-cmd", "--permanent", "--zone=public" ,"--add-port=25565/tcp"])
+subprocess.run(["sudo", "firewall-cmd", "--permanent", "--zone=public" ,"--add-port=25565/udp"])
 
-print("I'll create a .sh file to launch your server. Run source start.sh in installed screen to launch.")
+subprocess.run(["sudo", "firewall-cmd", "--reload"])
+
+subprocess.run(["sudo", "yum", "install", "-y", "tmux"])
+
+print("I'll create a .sh file to launch your server. Run source start.sh in installed tmux to launch.")
 
 with open("start.sh", "w") as startFile:
     startFile.write("java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui")
