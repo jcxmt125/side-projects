@@ -27,19 +27,19 @@ This contains some random pieces of Python code!
 - trpg-helper.py: a file to help you out for TRPG sessions. Currently adapted to me and my friend's ruleset for a cleric.
 - create-3d-trangles.py: a file that makes a txt file containing randomly colored, circularly-placed triangles and tetrahedrons for use in an a-frame environment.
 - uploadfile.py: a file that provides a *very* simple Terminal-based UI to upload files to a S3 compatible storage or Backblaze B2 (Warning: dynamic imports!)
-- webNowPlayingLogger.py: logs the playing song an artist to a file
-- wnpLogRead: helps read said file
-- gemini-api-multimodal: Lets you ask Gemini about images
+- webNowPlayingLogger.py: logs the playing song and artist to a file
+- wnpLogRead.py: helps read said file
+- gemini-api-multimodal.py: Lets you ask Gemini about images
 - mc-serverdeploy.py: See website for guide on using this file.
 - llm-comparison.py: Makes you chat to a random chatbot, and reveals who it was when the chat ends.
 - mcs-deploy-config series: Helps you deploy a minecraft server. See site for more info.
 
 You might want to look at the requirements in the file before running them.
 
-For more information, [visit my website!](https://hackclub.jclink.link/documentations)
-
 ## The musicLab directory
 
 This is where songs I made for fun reside!
 It was made in [Song Maker Plus](https://www.songmakerpl.us/), which allows anyone to create songs.
 To listen to them, you could try playing the MIDI file directly, or see more [here](https://hackclub.jclink.link/documentations/music.html).
+
+For more information, [visit my website!](https://hackclub.jclink.link/documentations)

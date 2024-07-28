@@ -23,23 +23,23 @@ Workers 웹 에디터로 코드를 붙여넣으면 작동할거에요! 아마.
 여러 파이썬 코드가 있어요!
 
 - ...-worker-test.py: 위의 워커들을 테스트하는데에 사용됩니다.
-- htmlify.py: make a source.txt file with the content you want and it should convert all newlines to a \<br\> tag, and tab out things.
-- trpg-helper.py: a file to help you out for TRPG sessions. Currently adapted to me and my friend's ruleset for a cleric.
-- create-3d-trangles.py: a file that makes a txt file containing randomly colored, circularly-placed triangles and tetrahedrons for use in an a-frame environment.
-- uploadfile.py: a file that provides a *very* simple Terminal-based UI to upload files to a S3 compatible storage or Backblaze B2 (Warning: dynamic imports!)
-- webNowPlayingLogger.py: logs the playing song an artist to a file
-- wnpLogRead: helps read said file
-- gemini-api-multimodal: Lets you ask Gemini about images
-- mc-serverdeploy.py: See website for guide on using this file.
-- llm-comparison.py: Makes you chat to a random chatbot, and reveals who it was when the chat ends.
+- htmlify.py: 원하는 텍스트가 포함된 source.txt 파일을 만들면, 줄넘김을 \<br\>로 변환해주고, 탭을 적용해줍니다.
+- trpg-helper.py: TRPG 세션을 도와주는 파이썬 스크립트. 현재 커스텀 룰셋의 클레릭을 위해 만들어져 있습니다.
+- create-3d-trangles.py: a-frame 환경에서 디스플레이 가능한, 여러 색의 삼각형을 만들어주는 스크립트.
+- uploadfile.py: 이 파일은 S3 / Backblaze사의 B2 저장공간에 대한 *아주* 간단한 터미널 기반 UI를 제공합니다.
+- webNowPlayingLogger.py: 현재 재생중인 음악과 아티스트 정보를 파일에 로깅합니다.
+- wnpLogRead.py: (위 파일을 읽는걸 도와줍니다)
+- gemini-api-multimodal.py: Gemini API에 사진을 보내 분석을 요청합니다.
+- mc-serverdeploy.py: (이 파일에 대한 설명은 웹사이트를 참고해주세요)
+- llm-comparison.py: 무작위 AI와 연결해주고, 채팅이 끝난 뒤 알려줍니다.
 - mcs-deploy-config series: Helps you deploy a minecraft server. See site for more info.
 
 You might want to look at the requirements in the file before running them.
-
-For more information, [visit my website!](https://hackclub.jclink.link/documentations)
 
 ## The musicLab directory
 
 This is where songs I made for fun reside!
 It was made in [Song Maker Plus](https://www.songmakerpl.us/), which allows anyone to create songs.
 To listen to them, you could try playing the MIDI file directly, or see more [here](https://hackclub.jclink.link/documentations/music.html).
+
+더 자세한 안내를 위해선, [웹사이트를 방문해주세요!](https://ghpages.jclink.link/documentations/index.html)
