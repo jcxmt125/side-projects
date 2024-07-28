@@ -1,6 +1,6 @@
 import subprocess, json, os
 
-print("Starting touchless deploy for aarch64 oracle...")
+print("aarch64 oracle를 위한 빠른 설치를 시작합니다...")
 
 tlconfigLink = "https://raw.githubusercontent.com/jcxmt125/side-projects/main/python%20scripts/mcs-deploy-config/touchless/touchless-config-oracle-aarch.json"
 
@@ -58,9 +58,9 @@ subprocess.run(["sudo", "firewall-cmd", "--reload"])
 
 subprocess.run(["sudo", "yum", "install", "-y", "tmux"])
 
-print("I'll create a .sh file to launch your server. Run source start.sh in installed tmux to launch.")
+print("서버를 시작하기 위한 .sh 파일을 만들게요. source start.sh를 tmux 환경에서 실행해 시작하세요.")
 
 with open("start.sh", "w") as startFile:
     startFile.write("java -Xmx"+str(memAllocated)+"G -jar " +jarFile+ " nogui")
 
-print("Complete! However, this doesn't configure whitelisting, which is highly recommended. Please do that asap after deployment!")
+print("완료했어요! 다만, 화이트리스트 기능은 설정하지 않았어요. 서버를 시작하고 가능한 한 빨리 설정해주세요!")

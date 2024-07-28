@@ -26,6 +26,7 @@ filesInDir = os.listdir(os.getcwd())
 for i in filesInDir:
     if i.endswith(".jar"):
         jarFile = i
+        break
 
 if int(serverType) == 2:
     os.mkdir("mods")

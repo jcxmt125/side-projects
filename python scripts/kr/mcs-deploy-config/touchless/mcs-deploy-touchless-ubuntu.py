@@ -17,7 +17,7 @@ jarFileLink = config["jarFileLink"]
 
 javaName = config["javaName"]
 
-subprocess.run(["free"])
+subprocess.run(["free", "-h"])
 
 print("Please input the amount of RAM to assign to the Minecraft server.")
 
