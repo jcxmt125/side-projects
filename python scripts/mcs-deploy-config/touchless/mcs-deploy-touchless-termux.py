@@ -1,4 +1,5 @@
 import subprocess, json, os
+from pathlib import Path
 
 print("Starting touchless deploy for aarch64 termux...")
 
@@ -31,6 +32,8 @@ for i in filesInDir:
         break
 
 subprocess.run(["tar", "-xvf", compressedFile])
+
+Path.unlink(Path(compressedFile))
 
 filesInDir = os.listdir(os.getcwd())
 
