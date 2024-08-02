@@ -6,6 +6,7 @@ Well, I assume you've read the title...
 Anything here may work. Or not. I'm not sure.
 The overall goal of this project does not exist!
 This repository was made to consolidate all my experiments.
+**Code in this repository was written with help of Codium AI.**
 
 ## The workers directory
 
