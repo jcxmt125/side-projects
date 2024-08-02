@@ -6,9 +6,7 @@ tlconfigLink = "https://raw.githubusercontent.com/jcxmt125/side-projects/main/py
 
 subprocess.run(["curl", "-OJ", tlconfigLink])
 
-
-
-filePath = "touchless-config-oracle-aarch.json"
+filePath = "touchless-config-termux.json"
 
 with open(filePath, "r", encoding="UTF-8") as configFile:
     config = json.load(configFile)
