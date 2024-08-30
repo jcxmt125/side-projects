@@ -44,3 +44,10 @@ It was made in [Song Maker Plus](https://www.songmakerpl.us/), which allows anyo
 To listen to them, you could try playing the MIDI file directly, or see more [here](https://hackclub.jclink.link/documentations/music.html).
 
 For more information, [visit my website!](https://hackclub.jclink.link/documentations)
+
+## Images
+
+There's a *lot* of stuff here... some of which don't really have meaningful images they produce... except for the 3d triangles!
+I'll send this off with a randomly generated 3d website's image.
+
+![3D triangles floating around. Weeeeeee](image.png)
